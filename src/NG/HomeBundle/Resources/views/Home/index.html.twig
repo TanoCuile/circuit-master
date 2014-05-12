@@ -1,0 +1,19 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+    {% if app.user %}
+    {% endif %}
+    {% import "HomeBundle:Default:blogs.html.twig" as blog %}
+    <div class="well-sm">
+        <h2>Блоги</h2>
+        {{ blog.list(blog_list) }}
+    </div>
+{% endblock %}
+
+{% block js %}
+    {{ parent() }}
+{% endblock %}
+
+{% block css %}
+    {{ parent() }}
+{% endblock %}

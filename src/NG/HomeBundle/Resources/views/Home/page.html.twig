@@ -1,0 +1,12 @@
+{% extends "::layout.html.twig" %}
+
+{% block title %}
+    {{ page.title }}
+{% endblock %}
+{% block page_title %}
+    {{ page.title }}
+{% endblock %}
+
+{% block content %}
+    {{ page.text|raw }}
+{% endblock %}

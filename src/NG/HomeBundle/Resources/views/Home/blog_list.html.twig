@@ -1,0 +1,7 @@
+{% extends "::layout.html.twig" %}
+{% block title %}Блоги{% endblock %}
+{% block page_title %}Блоги{% endblock %}
+{% block content %}
+    {% import "HomeBundle:Default:blogs.html.twig" as blog %}
+    {{ blog.list(blog_list) }}
+{% endblock %}

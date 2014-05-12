@@ -1,0 +1,41 @@
+services:
+    ng_home.component.twig_helper:
+        class: NG\HomeBundle\Component\SystemTwigHelper
+        arguments:
+            - @service_container
+    ns.form.type.image:
+        class: NG\HomeBundle\Form\Type\ImageType
+        tags:
+            - { name: form.type, alias: image }
+
+#Admin srvices
+    ng_home.admin.block:
+        class: NG\HomeBundle\Admin\BlockAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.content, label: "Блоки", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\HomeBundle\Document\Block
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]
+    ng_home.admin.page:
+        class: NG\HomeBundle\Admin\PageAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.content, label: "Прості сторінки", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\HomeBundle\Document\Page
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]
+    ng_home.admin.blog:
+        class: NG\HomeBundle\Admin\BlogAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.content, label: "Блоги", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\HomeBundle\Document\Blog
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]

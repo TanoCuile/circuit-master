@@ -1,0 +1,20 @@
+{% macro list(blog_list) %}
+    <div class="blog_list">
+        {% for blog in blog_list %}
+            <div class="box">
+                <header>
+                    <h5>{{ blog.title }}</h5>
+                </header>
+                <div class="body">
+                    <div class="info">
+                        <span class="author">Опубліковано: {{ blog.author.fullName }}</span>
+                        <span class="date">Дата: {{ blog.created|date('Y.m.d') }}</span>
+                    </div>
+                    <div class="description"><b>{{ blog.description }}</b></div>
+                    <div class="pull-right"><a href="{{ path('blog', { url:blog.url }) }}" class="btn btn-info">Переглянути</a></div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}

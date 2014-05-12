@@ -1,0 +1,32 @@
+services:
+    ng_user.registration.form.type:
+        class: NG\UserBundle\Form\Type\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: ng_user_registration }
+    ng_user.profile.form.type:
+        class: NG\UserBundle\Form\Type\ProfileFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: ng_user_profile }
+# Admin services
+    ng_user.admin.user:
+        class: NG\UserBundle\Admin\UserAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.user, label: "Пользователи", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\UserBundle\Document\User
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]
+    ng_user.admin.group:
+        class: NG\UserBundle\Admin\GroupAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.user, label: "Групи", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\UserBundle\Document\Group
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]

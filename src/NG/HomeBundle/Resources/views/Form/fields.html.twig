@@ -1,0 +1,19 @@
+{% block image_widget %}
+    {% spaceless %}
+        {% set type = type|default('file') %}
+        <div class="{{ horizontal_input_wrapper_class }}">
+            {% if widget_addon_prepend|default(null) is not null %}
+                {% set widget_addon = widget_addon_prepend %}
+                {{ block('widget_addon') }}
+            {% endif %}
+            <input type="{{ type }}" {{ block('widget_attributes') }}/>
+            <span><img src="{{ data }}" width="120" title="{{ data }}" /></span>
+            {% if type != 'hidden' and  widget_addon.type|default(null) is not null %}
+                {% if widget_addon_append|default(null) is not null %}
+                    {% set widget_addon = widget_addon_append %}
+                    {{ block('widget_addon') }}
+                {% endif %}
+            {% endif %}
+        </div>
+    {% endspaceless %}
+{% endblock %}

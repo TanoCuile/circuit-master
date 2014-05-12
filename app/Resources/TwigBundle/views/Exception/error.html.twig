@@ -1,0 +1,20 @@
+{% extends '::html_layout.html.twig' %}
+{% block body_class %}error{% endblock %}
+{% block title %}{{ status_code }}:{{ status_text|trans }}{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="col-lg-8 col-lg-offset-2 text-center">
+            <div class="logo">
+                <h1>{{ status_code }}</h1>
+            </div>
+            <p class="lead text-muted">Помилка. {{ status_text|trans }}</p>
+            <div class="clearfix"></div>
+            <br>
+            <div class="col-lg-6  col-lg-offset-3">
+                <div class="btn-group btn-group-justified">
+                    <a href="{{ path('home') }}" class="btn btn-info">Повернутись на головну</a>
+                </div>
+            </div>
+        </div><!-- /.col-lg-8 col-offset-2 -->
+    </div>
+{% endblock %}

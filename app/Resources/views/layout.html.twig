@@ -1,0 +1,90 @@
+{% extends "::html_layout.html.twig" %}
+{% block body %}
+    <div id="wrap">
+        <div id="top">
+
+            <!-- .navbar -->
+            <nav class="navbar navbar-inverse navbar-static-top">
+                <div class="container-fluid">
+
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <header class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-ex1-collapse">
+                            <span class="sr-only">Показать навигацию</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a href="{{ path('home') }}" class="navbar-brand">
+                            <h3>Master Circuit</h3>
+                        </a>
+                    </header>
+                    {% block control_buttons %}
+                        {{ block('default_control_buttons') }}
+                    {% endblock %}
+                    <div class="collapse navbar-collapse navbar-ex1-collapse">
+                        <!-- .nav -->
+                        {% block navigation_menu %}
+                            {{ block('default_navigation_menu') }}
+                        {% endblock %}
+                        <!-- /.nav -->
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+            </nav>
+            <!-- /.navbar -->
+            <header class="head">
+                <div class="search-bar">
+                </div>
+                <!-- /.search-bar -->
+                <div class="main-bar">
+                    <h3>{% block page_title %}Master{% endblock %}</h3>
+                </div>
+                <!-- /.main-bar -->
+            </header>
+            <!-- /.head -->
+        </div>
+        <!-- /#top -->
+        <div id="left">
+            {% block user_info %}
+                {{ block('default_user_info') }}
+            {% endblock %}
+
+            <!-- #menu -->
+            {% block main_menu %}
+                {{ block('default_main_menu') }}
+            {% endblock %}
+            <!-- /#menu -->
+        </div>
+        <!-- /#left -->
+        <div id="content">
+            <div class="outer">
+                <div class="inner">
+                    {% block content %}{% endblock %}
+                </div>
+                <!-- /.inner -->
+            </div>
+            <!-- /.outer -->
+        </div>
+        <!-- /#content -->
+        <div id="right">
+            {% block right_info %}
+                {{ block('default_right_info') }}
+            {% endblock %}
+        </div>
+        <!-- /#right -->
+    </div>
+    <!-- /#wrap -->
+
+    <!-- /#wrap -->
+    <footer id="footer">
+        <p>2014 &copy; Stri Finder</p>
+    </footer>
+    <!-- /#footer -->
+
+    <!-- #helpModal -->
+    {% set help_block = helper.block('help_test') %}
+    {{ modals.even(help_block.name, help_block.text) }}
+    <!-- /#helpModal -->
+{% endblock %}

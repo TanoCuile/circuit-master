@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/home/lib/bootstrap/css/bootstrap.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/home/lib/bootstrap/css/bootstrap-theme.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/home/lib/font-awesome/css/font-awesome.min.css') }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset('bundles/home/css/metis.min.css') }}"/>
+        <link rel="stylesheet/less" type="text/css" href="{{ asset('bundles/home/css/less/theme.less') }}"/>
+        {% stylesheets
+        '@HomeBundle/Resources/public/css/style.css' %}
+        <link rel="stylesheet" type="text/css" href="{{ asset_url }}"/>
+        {% endstylesheets %}
+    {% endblock %}
+    {% block rewrite_css %}
+    {% endblock %}
+    {% block header_js %}
+        <script type="text/javascript" src="{{ asset('bundles/home/lib/less/less-1.7.0.min.js') }}"></script>
+        <!--[if lt IE 9]>
+        <script src="{{ asset('bundles/home/lib/html5shiv/html5shiv.js') }}"></script>
+        <script src="{{ asset('bundles/home/lib/respond/respond.min.js') }}"></script>
+        <![endif]-->
+
+        <script src="{{ asset('bundles/home/lib/modernizr/modernizr.min.js') }}"></script>
+    {% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+</head>
+<body class="{% block body_class %}default{% endblock %}">
+{% use 'HomeBundle:Default:blocks.html.twig' %}
+{% import 'HomeBundle:Default:modal.html.twig' as modals %}
+{% block body %}
+{% endblock %}
+{% block js %}
+    {% javascripts
+    '@HomeBundle/Resources/public/lib/js/jquery-1.11.0.js'
+    '@HomeBundle/Resources/public/lib/bootstrap/js/bootstrap.min.js'
+    '@HomeBundle/Resources/public/lib/js/underscore.js'
+    '@HomeBundle/Resources/public/lib/js/backbone.js'
+    '@HomeBundle/Resources/public/lib/js/backbone.marionette.js'
+    '@HomeBundle/Resources/public/lib/js/rivets.min.js'
+    '@HomeBundle/Resources/public/lib/js/snap.svg-min.js'
+    '@HomeBundle/Resources/public/js/metis.min.js'
+    '@HomeBundle/Resources/public/js/main.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
+{% block last_js %}
+{% endblock %}
+</body>
+</html>

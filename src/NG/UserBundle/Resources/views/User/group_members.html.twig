@@ -1,0 +1,12 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}{{ group.name }}{% endblock %}
+{% block page_title %}{{ group.name }}{% endblock %}
+
+{% block content %}
+    {% for member in members %}
+        <div class="member">
+            <h4>{{ member.fullName }} <a class="btn btn-info" href="">Переглянути роботи</a></h4>
+        </div>
+    {% endfor %}
+{% endblock %}

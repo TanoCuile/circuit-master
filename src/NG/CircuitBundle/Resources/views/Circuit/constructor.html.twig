@@ -1,0 +1,38 @@
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+    <div class="svg-holder">
+        <div class="svg-container">
+            <svg></svg>
+        </div>
+    </div>
+{% endblock %}
+
+{% block last_js %}
+    {% javascripts
+        '@CircuitBundle/Resources/public/js/main.js'
+
+        '@CircuitBundle/Resources/public/js/driver/driver.js'
+        '@CircuitBundle/Resources/public/js/driver/detection_grid.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/elementary.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/link.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/control.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/component.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/requirements.driver.js'
+
+        '@CircuitBundle/Resources/public/js/driver/svg/svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/elementary.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/connection.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/control.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/component.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/bg.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/driver/svg/requirements.svg.driver.js'
+
+        '@CircuitBundle/Resources/public/js/circuit/circuit.js'
+        '@CircuitBundle/Resources/public/js/circuit/circuit.controller.js'
+        '@CircuitBundle/Resources/public/js/circuit/circuit.model.js'
+        '@CircuitBundle/Resources/public/js/circuit/circuit.view.js'
+    %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}

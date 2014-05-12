@@ -1,0 +1,39 @@
+{% extends '::html_layout.html.twig' %}
+{% block body_class %}login{% endblock %}
+{% block body %}
+    <div class="container">
+        <div class="text-center">
+            <h3>Master Circuit</h3>
+        </div>
+
+        <div class="tab-content">
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <div>
+                {% block fos_user_content %}
+                {% endblock fos_user_content %}
+            </div>
+        </div>
+        <div class="text-center">
+            <ul class="list-inline">
+                {#<li>#}
+                    {#{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}#}
+                        {#{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |#}
+                        {#<a class="text-muted" href="{{ path('fos_user_security_logout') }}">#}
+                            {#{{ 'layout.logout'|trans({}, 'FOSUserBundle') }}#}
+                        {#</a>#}
+                    {#{% else %}#}
+                        {#<a class="text-muted" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>#}
+                    {#{% endif %}#}
+                {#</li>#}
+                {% block list_inline %}
+                {% endblock %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

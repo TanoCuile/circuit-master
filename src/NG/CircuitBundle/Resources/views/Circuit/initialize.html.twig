@@ -1,0 +1,26 @@
+{% extends '::layout.html.twig' %}
+
+{% block title %}{% if circuit.id %}Редагувати {{ circuit.name }}{% else %}Створити схему{% endif %}{% endblock %}
+{% block page_title %}{% if circuit.id %}Редагувати {{ circuit.name }}{% else %}Створити схему{% endif %}{% endblock %}
+
+{% block content %}
+    <div class="box">
+        {{ form_start(form, { attr: {class: 'form-horizontal'} }) }}
+            <div class="form-group">
+                <label for="{{ form.name.vars.id }}" class="control-label col-lg-4">{{ form.name.vars.label }}</label>
+                <div class="col-lg-8">
+                    {{ form_widget(form.name, { attr: {class: 'form-control', } } ) }}
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="{{ form.description.vars.id }}" class="control-label col-lg-4">{{ form.description.vars.label }}</label>
+                <div class="col-lg-8">
+                    {{ form_widget(form.description, { attr: {class: 'form-control', } } ) }}
+                </div>
+            </div>
+            <div class="form-actions">
+                <button class="btn btn-primary pull-right">Зберегти</button>
+            </div>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

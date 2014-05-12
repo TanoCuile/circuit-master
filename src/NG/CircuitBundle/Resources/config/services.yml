@@ -1,0 +1,11 @@
+services:
+    ng_circuit.admin.component_type:
+        class: NG\CircuitBundle\Admin\ComponentTypeAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.elements, label: "Елементи схеми", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\CircuitBundle\Document\ComponentType
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]
