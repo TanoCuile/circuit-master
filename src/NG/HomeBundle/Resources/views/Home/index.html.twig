@@ -12,6 +12,14 @@
 
 {% block js %}
     {{ parent() }}
+    <script type="text/javascript">
+        (function ($) {
+            $('#componentTypes a').click(function (e) {
+                e.preventDefault(true);
+                $(this).tab("show");
+            });
+        })(jQuery);
+    </script>
 {% endblock %}
 
 {% block css %}

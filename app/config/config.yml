@@ -30,6 +30,7 @@ twig:
     strict_variables: "%kernel.debug%"
     globals:
         helper: @ng_home.component.twig_helper
+        left_menu: @ng.menu.left_menu
     form:
         resources:
             - 'HomeBundle:Form:fields.html.twig'

@@ -7,7 +7,9 @@
                 {{ block('widget_addon') }}
             {% endif %}
             <input type="{{ type }}" {{ block('widget_attributes') }}/>
-            <span><img src="{{ data }}" width="120" title="{{ data }}" /></span>
+            <div class="{{ preview_class }}">
+                <img src="{{ data }}" {% if preview_width != 0 %}width="{{ preview_width }}"{% endif %}} title="{{ data }}" />
+            </div>
             {% if type != 'hidden' and  widget_addon.type|default(null) is not null %}
                 {% if widget_addon_append|default(null) is not null %}
                     {% set widget_addon = widget_addon_append %}

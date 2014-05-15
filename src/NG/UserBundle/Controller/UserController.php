@@ -11,6 +11,29 @@ use Symfony\Component\HttpFoundation\Response;
 class UserController extends Controller
 {
     /**
+     * @Route("/groups", name="admin_groups")
+     */
+    function allGroupsAction()
+    {
+        /** @var User $user */
+        $user = $this->getUser();
+        if($user->getPermission() < User::USER_PERMISSION_ADMIN){
+            return new RedirectResponse($this->get('router')->generate('home'));
+        }
+
+        $groups = $this->get('doctrine_mongodb')->getManager()
+            ->getRepository('UserBundle:Group')
+            ->findAll();
+
+        return new Response($this->renderView(
+            'UserBundle:User:groups.html.twig', array(
+                'user' => $user,
+                'groups' => $groups
+            )
+        ));
+    }
+
+    /**
      * @Route("/professor/{id}/groups", name="professor_groups")
      */
     function professorGroupsAction($id)

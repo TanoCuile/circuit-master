@@ -9,3 +9,14 @@ services:
             - ~
         calls:
             - [ setTranslationDomain, [HomeBundle]]
+            - [ setTemplate, ['edit', 'CircuitBundle:Admin\edit:circuit_edit.html.twig'] ]
+    ng_circuit.admin.component_group:
+        class: NG\CircuitBundle\Admin\ComponentGroupAdmin
+        tags:
+            - { name: sonata.admin, manager_type: doctrine_mongodb, group: cm.admin.elements, label: "Групи елементів", show_in_dashboard: true }
+        arguments:
+            - ~
+            - NG\CircuitBundle\Document\ComponentGroup
+            - ~
+        calls:
+            - [ setTranslationDomain, [HomeBundle]]

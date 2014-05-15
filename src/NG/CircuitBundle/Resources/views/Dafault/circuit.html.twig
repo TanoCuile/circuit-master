@@ -1,0 +1,95 @@
+{% macro circuit_list(circuit_list) %}
+    <div class="circuits_list">
+        {% for circuit in circuit_list %}
+            <div class="box">
+                <header>
+                    {{ circuit.name }}
+                </header>
+                <div class="body">
+                    <div class="description">
+                        {{ circuit.description }}
+                    </div>
+                    <div class="clearfix">
+                        <a href="{{ path('constructor', { id:circuit.id }) }}" class="btn btn-info">Переглянути
+                            роботу</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endmacro %}
+
+{% macro components_list() %}
+    {% set components = helper.componentTypes %}
+    <div class="component_types_list">
+        <ul id="componentTypes" class="nav nav-tabs">
+            {% for id,natureInfo in components %}
+                <li class="{% if loop.first %}active{% endif %}"><a href="#nature{{ id }}" data-toggle="tab">{{ natureInfo.label }}</a></li>
+            {% endfor %}
+        </ul>
+        <script type="text/javascript">
+            (function(){
+                window.circuitComponents = {};
+            })();
+        </script>
+        <div class="tab-content">
+        {% for id,natureInfo in components %}
+            <div id="nature{{ id }}" class="tab-pane fade {% if loop.first %}active in{% endif %}">
+                <div class="panel-group" id="accordion">
+                    {% for gid,groupInfo in natureInfo.groups %}
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#group{{ gid }}">
+                                        {{ groupInfo.label }}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="group{{ gid }}" class="description panel-collapse collapse{% if loop.first %} in{% endif %}">
+                                {% for g in groupInfo.components %}
+                                    <div class="row">
+                                    {% for component in g %}
+                                        <div id="component-{{ component.machineName }}" class="well col-md-4">
+                                            <h5 class="title">
+                                                {{ component.name }}
+                                            </h5>
+                                            <div class="preview">
+                                                <img data-element="{{ component.machineName }}" class="viewport" src="{{ component.webPath }}"/>
+                                            </div>
+                                        </div>
+                                        <script type="text/javascript">
+                                            (function(){
+                                                circuitComponents['{{ component.machineName }}'] = {
+                                                    image: '{{ component.webPath }}',
+                                                    {% if component.preview %}preview: '{{ component.previewWebPath }}',{% endif %}
+                                                    pinCollection: [
+                                                        {% for pin in component.pinCollection %}
+                                                        {
+                                                            id: '{{ pin.machineName }}',
+                                                            position: {
+                                                                x: {{ pin.x }},
+                                                                y: {{ pin.y }}
+                                                            }
+                                                        }{% if not loop.last %},{% endif %}
+                                                        {% endfor %}
+                                                    ],
+                                                    helpImages: {
+                                                        {% for helpImage in component.helpImages %}
+                                                        '{{ helpImage.machineName }}': '{{ helpImage.webPath }}'{% if not loop.last %},{% endif %}
+                                                        {% endfor %}
+                                                    }
+                                                };
+                                            })();
+                                        </script>
+                                    {% endfor %}
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endmacro %}

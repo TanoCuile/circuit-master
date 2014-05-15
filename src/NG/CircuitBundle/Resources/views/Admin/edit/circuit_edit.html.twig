@@ -1,0 +1,18 @@
+{% extends "SonataAdminBundle:CRUD:edit.html.twig" %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        (function($){
+            $(document).ready(function(){
+                $('.component-main-preview').click(function(e){
+                    var pos = $('.component-main-preview').offset();
+                    var x = e.pageX - pos.left;
+                    var y = e.pageY - pos.top;
+                    $('.pin_collection .sonata-collection-row:last .x-axis').val(parseInt(x));
+                    $('.pin_collection .sonata-collection-row:last .y-axis').val(parseInt(y));
+                });
+            })
+        })(jQuery);
+    </script>
+{% endblock %}

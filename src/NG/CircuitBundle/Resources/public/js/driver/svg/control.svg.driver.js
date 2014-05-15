@@ -10,13 +10,17 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
             ;
         },
         modelListen: function(){
-            this.model.on('change:position', this.move.bind(this));
+            this.bind(this.model, 'change:position', this.move.bind(this));
+            //this.model.on('change:position', this.move.bind(this));
 
             // Check setting sketch point for properly synchronize control point and line
-            this.model.on('change:sketchPoint', this.move.bind(this));
-            this.model.on('change:active', this.activeState.bind(this));
+            this.bind(this.model, 'change:sketchPoint', this.move.bind(this));
+            this.bind(this.model, 'change:active', this.activeState.bind(this));
+//            this.model.on('change:sketchPoint', this.move.bind(this));
+//            this.model.on('change:active', this.activeState.bind(this));
 
-            this.model.on('destroy', this.destroy.bind(this));
+            this.bind(this.model, 'destroy', this.destroy.bind(this));
+            //this.model.on('destroy', this.destroy.bind(this));
         },
         activeState: function(){
             if (!this.model.get('active')) {
@@ -116,22 +120,25 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
             this.movable.dragStart(x, y);
             this.connectionLine = app.canvasDriver.createLine(this.model, this.movable.model, true).render();
         },
+        dropMovable: function () {
+            this.movable.model.destroy();
+        },
         dragFinish: function(){
             var control = app.Driver.controlGrid.quickFind(this.movable.model.get('position'), this.model.get('id'));
             if (control) {
+                this.connectionLine.unBind(this.connectionLine.model.get('finish'));
                 this.connectionLine.model.set('finish', control);
                 this.connectionLine.modelListen();
                 control.trigger('moveTo', control.get('position'));
+                this.dropMovable();
             } else {
-                this.model.off('change:position', null, this.connectionLine.model.get('id'));
-                this.model.off('movedTo', null, this.connectionLine.model.get('id'));
-                this.movable.model.destroy();
-                this.movable.model.off();
-                this.movable.off();
-                this.movable = null;
-                this.connectionLine.model.off();
-                this.connectionLine.off();
-                this.connectionLine = null;
+//                this.model.off('change:position', null, this.connectionLine.model.get('id'));
+//                this.model.off('movedTo', null, this.connectionLine.model.get('id'));
+                this.model.unBind(this.connectionLine.model);
+                this.dropMovable();
+                this.connectionLine.model.destroy();
+                console.log(this.model._events);
+                console.log(this.connectionLine.model);
             }
         }
     });

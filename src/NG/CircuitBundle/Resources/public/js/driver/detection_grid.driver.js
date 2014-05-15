@@ -8,6 +8,8 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
 
         this.addPoint = function(id, element){
             controls[id] = element.get('position');
+            controls[id].x = Math.floor(controls[id].x);
+            controls[id].y = Math.floor(controls[id].y);
         };
 
         this.addConnection = function(id, element){
@@ -20,6 +22,8 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
         this.calculateGrid = function(elements){
             var position = null;
             var id = null;
+            x = {};
+            controls = {};
 
             _.each(controls, function(position, id){
                 position = elements[id].get('position');
@@ -37,7 +41,7 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
         };
 
         this.quickFind = function(position, except){
-            var k = position.x;
+            var k = Math.floor(position.x);
             var found = false;
             for (var i = k - module.gridPrecision; i < k + module.gridPrecision; ++i) {
                 // Find by x
@@ -46,7 +50,7 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
                     // Check by y
                     if (controls[found]){
                         var y = controls[found].y;
-                        if (position.y < y + app.Driver.gridPrecision && position.y > y - module.gridPrecision) {
+                        if (Math.floor(position.y) < y + app.Driver.gridPrecision && Math.floor(position.y) > y - module.gridPrecision) {
                             return module.getElement(found);
                         }
                     } else {

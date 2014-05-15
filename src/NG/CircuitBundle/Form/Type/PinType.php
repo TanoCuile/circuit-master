@@ -4,14 +4,33 @@ namespace NG\CircuitBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PinType extends AbstractType {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('x')
-            ->add('y')
+            ->add('machineName', null, array(
+                'label' => 'Машинна назва',
+            ))
+            ->add('x', null, array(
+                'attr' => array(
+                    'class' => 'x-axis'
+                )
+            ))
+            ->add('y', null, array(
+                'attr' => array(
+                    'class' => 'y-axis'
+                )
+            ))
         ;
+    }
+
+    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    {
+        $resolver->setDefaults(array(
+            'data_class' => 'NG\CircuitBundle\Document\Pin'
+        ));
     }
 
 

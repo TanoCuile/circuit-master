@@ -6,6 +6,7 @@ MasterApp.addInitializer(function circuitInitialize(options){
 
     MasterApp.Circuit.initializeController({
         'circuit': circuit,
+        'components': circuitComponents,
         'canvas': options.canvas,
         'canvasDriver': options.canvasDriver
     });

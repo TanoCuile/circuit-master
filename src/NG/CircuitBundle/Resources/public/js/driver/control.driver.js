@@ -7,11 +7,15 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
             inAction: false
         },
         listen: function () {
-            this.on('change:inAction', this.isInAction);
-            this.on('change:chosen', this.isChosen);
-            this.on('change:active', this.activeControl);
+            this.bind(this, 'change:inAction', this.isInAction.bind(this));
+            this.bind(this, 'change:chosen', this.isChosen.bind(this));
+            this.bind(this, 'change:active', this.activeControl.bind(this));
+//            this.on('change:inAction', this.isInAction);
+//            this.on('change:chosen', this.isChosen);
+//            this.on('change:active', this.activeControl);
 
-            this.on('destroy', this.removeFromGlobals.bind(this));
+            this.bind(this, 'destroy', this.removeFromGlobals.bind(this));
+            //this.on('destroy', this.removeFromGlobals.bind(this));
         },
         initialize: function(){
             this.generateId();
@@ -39,15 +43,20 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
         },
 
         listen: function () {
-            this.on('change:inAction', this.isInAction);
-            this.on('change:chosen', this.isChosen);
-            this.on('change:active', this.activeControl);
+            this.bind(this, 'change:inAction', this.isInAction.bind(this));
+            this.bind(this, 'change:chosen', this.isChosen.bind(this));
+            this.bind(this, 'change:active', this.activeControl.bind(this));
+            //this.on('change:inAction', this.isInAction);
+//            this.on('change:chosen', this.isChosen);
+//            this.on('change:active', this.activeControl);
 
             // TODO: add rotation effect
-            this.get('component').on('change:position', this.calculatePosition.bind(this));
-            this.get('component').on('change:chosen', this.componentCheckState.bind(this));
+            this.bind(this.get('component'), 'change:position', this.calculatePosition.bind(this));
+            this.bind(this.get('component'), 'change:chosen', this.componentCheckState.bind(this));
+//            this.get('component').on('change:position', this.calculatePosition.bind(this));
+//            this.get('component').on('change:chosen', this.componentCheckState.bind(this));
 
-            this.on('destroy', this.removeFromGlobals.bind(this));
+            this.listenDefault();
         },
 
         initialize: function(){

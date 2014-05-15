@@ -1,1 +1,6 @@
-{% extends  %}
+{% extends "::layout.html.twig" %}
+
+{% block content %}
+    {% import "CircuitBundle:Dafault:circuit.html.twig" as circuit %}
+    {{ circuit.circuit_list(circuit_list) }}
+{% endblock %}

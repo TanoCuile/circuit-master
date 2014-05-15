@@ -70,7 +70,7 @@ class Image {
     }
 
     /**
-     * Function setter for $custom_dir
+     * Function setter for $small_images_dir
      *
      * @param string $custom_dir
      */
@@ -81,7 +81,7 @@ class Image {
     }
 
     /**
-     * Function getter for $custom_dir
+     * Function getter for $small_images_dir
      *
      * @return string
      */
@@ -96,7 +96,7 @@ class Image {
     }
 
     public static function getImageAbsolutePath($path = '') {
-        $directory = __DIR__ . '/../../../../../web' . static::BASE_UPLOAD_DIR;
+        $directory = __DIR__ . '/../../../../web' . static::BASE_UPLOAD_DIR;
         if (empty($path) || !is_string($path)) {
             return $directory;
         }

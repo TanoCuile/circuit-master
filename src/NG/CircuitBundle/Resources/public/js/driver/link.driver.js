@@ -6,13 +6,20 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
             active: false
         },
         listen: function () {
-            this.on('change:chosen', this.isChosen);
-            this.on('change:active', this.onActive);
+            this.bind(this, 'change:chosen', this.isChosen);
+            this.bind(this, 'change:active', this.activeControl);
+//            this.on('change:chosen', this.isChosen);
+//            this.on('change:active', this.onActive);
 
-            this.get('start').on('destroy', this.destroy.bind(this));
-            this.get('finish').on('destroy', this.destroy.bind(this));
+            this.bind(this.get('start'), 'destroy', this.destroy.bind(this));
+            this.bind(this.get('finish'), 'destroy', this.destroy.bind(this));
+//            this.get('start').on('destroy', this.destroy.bind(this));
+//            this.get('finish').on('destroy', this.destroy.bind(this));
 
-            this.on('destroy', this.removeFromGlobals.bind(this));
+            this.listenDefault();
+            console.log(this.listedOn);
+            console.log(this.listedObjects);
+            //this.on('destroy', this.removeFromGlobals.bind(this));
         },
         initialize: function(){
             this.generateId();

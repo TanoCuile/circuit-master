@@ -10,7 +10,7 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
             this.y = 0;
         };
 
-        this.gridPrecision = 5;
+        this.gridPrecision = 6;
 
         var elementCollection = {};
 
@@ -22,6 +22,7 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
             if (element instanceof module.ElementaryControll) {
                 view.on('choseNew', this.choseNew);
                 view.on('addToChosen', this.addToChosen);
+                element.on('movedTo', this.controlGrid.calculateGrid.bind(this.controlGrid, elementCollection));
                 this.controlGrid.addPoint(id, element);
             } else if (element instanceof module.ElementaryComponent) {
                 view.on('choseSet', this.choseSet);

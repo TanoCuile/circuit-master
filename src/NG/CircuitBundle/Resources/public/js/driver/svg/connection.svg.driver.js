@@ -9,13 +9,13 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
             ;
         },
         modelListen: function () {
-            this.model.get('start').on('change:position', this.startSketchingListen.bind(this), this.model.get('id'));
-            this.model.get('finish').on('change:position', this.finishSketchingListen.bind(this), this.model.get('id'));
+            this.bind(this.model.get('start'), 'change:position', this.startSketchingListen.bind(this));
+            this.bind(this.model.get('finish'), 'change:position', this.finishSketchingListen.bind(this));
 
-            this.model.get('start').on('movedTo', this.startMove.bind(this), this.model.get('id'));
-            this.model.get('finish').on('movedTo', this.finishMove.bind(this), this.model.get('id'));
+            this.bind(this.model.get('start'), 'movedTo', this.startMove.bind(this));
+            this.bind(this.model.get('finish'), 'movedTo', this.finishMove.bind(this));
 
-            this.model.on('destroy', this.destroy.bind(this));
+            this.bind(this.model.get('finish'), 'destroy', this.destroy.bind(this));
         },
         startSketchingListen: function(){
             var pos = {};
@@ -105,6 +105,8 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
             this.createNewLine(middlePoint, finish).render();
 
             this.model.set('finish', middlePoint.model);
+
+            finish.off('movedTo', null, this.model.get('id'));
 
             this.stopListening();
             this.modelListen();

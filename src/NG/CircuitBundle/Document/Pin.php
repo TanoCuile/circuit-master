@@ -17,6 +17,11 @@ class Pin {
     private $id;
 
     /**
+     * @MongoDB\String(name="machineName")
+     */
+    protected $machineName;
+
+    /**
      * @MongoDB\Int(name="x")
      */
     protected $x;
@@ -34,6 +39,27 @@ class Pin {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Function setter for $machineName
+     *
+     * @param mixed $machineName
+     */
+    public function setMachineName($machineName)
+    {
+        $this->machineName = $machineName;
+        return $this;
+    }
+
+    /**
+     * Function getter for $machineName
+     *
+     * @return mixed
+     */
+    public function getMachineName()
+    {
+        return $this->machineName;
     }
 
     /**

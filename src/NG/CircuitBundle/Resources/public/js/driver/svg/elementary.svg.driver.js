@@ -1,5 +1,7 @@
 MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _) {
     module.ElementaryView = Backbone.View.extend({
+        listedObjects: [],
+        listedOn: {},
         rendered: false,
         representation: null,
         prepareRepresentation: function(){
@@ -17,12 +19,15 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
         },
         listen: function(){},
         destroy: function(){
+            this.unBindAll();
             this.stopListening();
             this.remove();
         },
         remove: function () {
-            this.$el.remove();
-            this.$el = null;
+            if (this.$el) {
+                this.$el.remove();
+                this.$el = null;
+            }
             this.el = null;
             this.rendered = false;
         },
@@ -48,7 +53,11 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
             return this;
         },
         modelListen: function(){
-            this.model.on('change:position', this.move.bind(this));
+            this.bind(this.model, 'change:position', this.move.bind(this));
+            //this.model.on('change:position', this.move.bind(this));
+        },
+        modelUnListen: function(){
+            this.unBind(this.model);
         },
         move: function(){
             this.$el.attr(this.model.get('position'));
@@ -58,6 +67,33 @@ MasterApp.module('Driver.svg', function (module, app, Backbone, Marionette, $, _
         },
         initialize: function(options){
             this.defaultInitialize();
+        },
+        // off(event, object, context)
+        bind: function(listed, event, callback){
+            this.context = this.model.get('id');
+            if (this.listedObjects.indexOf(listed) < 0) {
+                this.listedObjects.push(listed);
+                this.listedOn['obj.' + this.listedObjects.indexOf(listed)] = {};
+            }
+            this.listedOn['obj.' + this.listedObjects.indexOf(listed)][event] = callback;
+            listed.on(event, callback, this.model.get('id'));
+        },
+        unBind: function(object){
+            _.each(this.listedOn['obj.' + this.listedObjects.indexOf(object)], function(callback, event){
+                object.off(event, null, this.model.get('id'));
+            }.bind(this));
+            this.listedOn['obj.' + this.listedObjects.indexOf(object)] = {};
+        },
+        unBindAll: function(){
+            for (var i in this.listedObjects){
+                this.unBind(this.listedObjects[i]);
+            }
+            this.listedObjects = [];
+            this.listedOn = {};
+        },
+        unBindEvent: function(object, event){
+            delete this.listedOn['obj.' + this.listedObjects.indexOf(object)][event];
+            object.off(event, null, this.model.get('id'));
         }
     });
 });

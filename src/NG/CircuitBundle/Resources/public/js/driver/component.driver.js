@@ -13,12 +13,11 @@ MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
             this.on('change:chosen', this.isChosen);
             this.on('change:active', this.activeControl);
 
-            this.on('destroy', this.removeFromGlobals.bind(this));
+            this.listenDefault();
         },
         initialize: function() {
             this.generateId();
             this.listen();
-
         },
         isInAction: function() {
             if (this.get('isInAction')) {

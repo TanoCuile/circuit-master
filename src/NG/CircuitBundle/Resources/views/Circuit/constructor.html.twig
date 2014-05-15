@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="svg-holder">
-        <div class="svg-container">
+        <div class="svg-container viewport circuit-container">
             <svg></svg>
         </div>
     </div>
@@ -32,6 +32,9 @@
         '@CircuitBundle/Resources/public/js/circuit/circuit.controller.js'
         '@CircuitBundle/Resources/public/js/circuit/circuit.model.js'
         '@CircuitBundle/Resources/public/js/circuit/circuit.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/component.factory.js'
+
+        '@CircuitBundle/Resources/public/js/form/components.form.view.js'
     %}
     <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}

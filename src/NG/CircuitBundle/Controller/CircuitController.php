@@ -27,7 +27,9 @@ class CircuitController extends Controller {
 
         $circuits = $dm->getRepository('CircuitBundle:Circuit')->findBy(array('author' => $user->getId()));
 
-        return new Response('');
+        return new Response($this->renderView('CircuitBundle:Circuit:list.html.twig', array(
+            'circuit_list' => $circuits
+        )));
     }
 
     /**

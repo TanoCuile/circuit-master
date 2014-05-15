@@ -3,8 +3,11 @@
 namespace NG\HomeBundle\Component;
 
 use Doctrine\ODM\MongoDB\DocumentManager;
+use NG\CircuitBundle\Document\ComponentType;
 use NG\HomeBundle\Document\Page;
+use NG\UserBundle\Document\User;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 class SystemTwigHelper {
     /** @var $container ContainerInterface */
@@ -81,5 +84,53 @@ class SystemTwigHelper {
             ->getRepository('HomeBundle:Block')
             ->findOneBy(array('machineName' => $name));
         return $block;
+    }
+
+    /**
+     * @return User|null
+     */
+    public function getUser(){
+        $token = $this->container->get('security.context')->getToken();
+        /** @var $token TokenInterface */
+        if ($token && ($user = $token->getUser())){
+            return $user;
+        }
+        return null;
+    }
+
+    public function getComponentTypes() {
+        $components = $this->container->get('doctrine_mongodb')
+            ->getManager()
+            ->getRepository('CircuitBundle:ComponentType')
+            ->findAll();
+        $labels = ComponentType::getAreaLabels();
+        $result = array(
+            ComponentType::COMPONENT_AREA_ELECTRIC => array(
+                'label' => $labels[ComponentType::COMPONENT_AREA_ELECTRIC],
+                'groups' => array()
+            ),
+            ComponentType::COMPONENT_AREA_PNEUMO => array(
+                'label' => $labels[ComponentType::COMPONENT_AREA_PNEUMO],
+                'groups' => array()
+            )
+        );
+        $i = 0;
+        $g = 0;
+        foreach($components as $component) {
+            /** @var $component ComponentType */
+            if (!isset($result[$component->getArea()]['groups'][$component->getGroup()->getId()])) {
+                $result[$component->getArea()]['groups'][$component->getGroup()->getId()] = array(
+                    'label' => $component->getGroup()->getName(),
+                    'components' => array()
+                );
+            }
+            $result[$component->getArea()]['groups'][$component->getGroup()->getId()]['components'][$g][$component->getId()] = $component;
+            if ($i == 3) {
+                $i = 0;
+                $g++;
+            }
+        }
+
+        return $result;
     }
 }

@@ -7,6 +7,14 @@ services:
         class: NG\HomeBundle\Form\Type\ImageType
         tags:
             - { name: form.type, alias: image }
+    ng.menu.left_menu:
+        class: NG\HomeBundle\Component\Menu
+    kernel.listener.your_listener_name:
+        class: NG\HomeBundle\EventListener\KernelListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
 
 #Admin srvices
     ng_home.admin.block:
