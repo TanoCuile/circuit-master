@@ -4,6 +4,7 @@ MasterApp.addInitializer(function initializeComponentsForm(){
             'click #componentTypes a': 'openTab'
         },
         initialize: function(options){
+            console.log(this.$el.find('.preview img'));
             this.$el.find('.preview img').draggable({
                 helper: 'clone',
                 appendTo: 'body',

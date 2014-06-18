@@ -125,7 +125,7 @@ class SystemTwigHelper {
                 );
             }
             $result[$component->getArea()]['groups'][$component->getGroup()->getId()]['components'][$g][$component->getId()] = $component;
-            if ($i == 3) {
+            if ($i == 1) {
                 $i = 0;
                 $g++;
             }

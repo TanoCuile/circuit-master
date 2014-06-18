@@ -5,9 +5,9 @@ MasterApp.addInitializer(function circuitInitialize(options){
     }
 
     MasterApp.Circuit.initializeController({
-        'circuit': circuit,
-        'components': circuitComponents,
+        'circuitInfo': circuit,
+        'componentTypes': circuitComponents,
         'canvas': options.canvas,
-        'canvasDriver': options.canvasDriver
+        'canvasDriver': options.canvasDriver,
     });
 });

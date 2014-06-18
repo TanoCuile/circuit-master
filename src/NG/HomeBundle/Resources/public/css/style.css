@@ -14,3 +14,30 @@ html, body, #wrap {
 .viewport {
     -webkit-user-select: none;-moz-user-select: none;-ms-user-select: none;user-select: none;
 }
+
+line:hover {
+    stroke: #669;
+    cursor: move;
+}
+
+circle {
+    fill: none;
+    stroke: #000;
+}
+
+circle:hover,
+circle.active {
+    cursor: pointer;
+    fill: #669;
+}
+image:hover {
+    border: solid 1px;
+    fill: rgba(60, 60, 60, 0.5);
+    cursor: move;
+}
+
+#content,
+.outer,
+.inner {
+    min-height: 100%;
+}

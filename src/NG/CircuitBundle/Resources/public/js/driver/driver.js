@@ -1,7 +1,8 @@
-MasterApp.addInitializer(function circuitInitialize(options) {
-    MasterApp.canvasDriver = MasterApp.Driver[options.canvasDriver];
-    MasterApp.canvasDriver.initialize(options);
-});
+//MasterApp.addInitializer(function circuitInitialize(options) {
+//    MasterApp.canvasDriver = MasterApp.Driver[options.canvasDriver];
+//    MasterApp.canvasDriver.initialize(options);
+//    MasterApp.vent.trigger('driver:init', MasterApp.canvasDriver);
+//});
 
 MasterApp.module('Driver', function (module, app, Backbone, Marionette, $, _) {
     var Driver = new function(){

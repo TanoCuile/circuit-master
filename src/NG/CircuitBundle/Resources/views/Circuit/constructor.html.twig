@@ -1,38 +1,45 @@
 {% extends "::layout.html.twig" %}
-
+{% block page_title %}{{ circuit.name }}{% endblock %}
 {% block content %}
     <div class="svg-holder">
         <div class="svg-container viewport circuit-container">
-            <svg></svg>
+            <svg class="circuit-canvas"></svg>
         </div>
     </div>
 {% endblock %}
 
 {% block last_js %}
+    <script type="text/javascript">
+        window.circuitData = {
+            'components': {{ circuit.components|json_encode|raw }}
+        };
+    </script>
     {% javascripts
         '@CircuitBundle/Resources/public/js/main.js'
 
-        '@CircuitBundle/Resources/public/js/driver/driver.js'
-        '@CircuitBundle/Resources/public/js/driver/detection_grid.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/elementary.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/link.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/control.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/component.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/requirements.driver.js'
-
-        '@CircuitBundle/Resources/public/js/driver/svg/svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/elementary.svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/connection.svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/control.svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/component.svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/bg.svg.driver.js'
-        '@CircuitBundle/Resources/public/js/driver/svg/requirements.svg.driver.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/driver.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/circuit.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/elementary.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/svg.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/control.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/connection.view.js'
+        '@CircuitBundle/Resources/public/js/circuit/views/svg/component.view.js'
 
         '@CircuitBundle/Resources/public/js/circuit/circuit.js'
-        '@CircuitBundle/Resources/public/js/circuit/circuit.controller.js'
         '@CircuitBundle/Resources/public/js/circuit/circuit.model.js'
-        '@CircuitBundle/Resources/public/js/circuit/circuit.view.js'
-        '@CircuitBundle/Resources/public/js/circuit/elements/component.factory.js'
+        '@CircuitBundle/Resources/public/js/circuit/circuit.grid.js'
+        '@CircuitBundle/Resources/public/js/circuit/circuit.controller.js'
+
+        '@CircuitBundle/Resources/public/js/circuit/elements/elementary.model.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/elementary.controller.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/component.model.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/component.controller.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/control.model.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/control.controller.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/connection.model.js'
+        '@CircuitBundle/Resources/public/js/circuit/elements/connection.controller.js'
+
+        '@CircuitBundle/Resources/public/js/circuit/elements/types/*'
 
         '@CircuitBundle/Resources/public/js/form/components.form.view.js'
     %}

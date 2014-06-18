@@ -6,6 +6,7 @@ use NG\CircuitBundle\Document\Circuit;
 use NG\CircuitBundle\Form\Type\CircuitType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -49,6 +50,7 @@ class CircuitController extends Controller {
                 /** @var Circuit $circuit */
                 $circuit = $form->getData();
                 $circuit->setAuthor($this->getUser());
+                $circuit->setComponents(array());
                 $dm->persist($circuit);
                 $dm->flush();
                 return new RedirectResponse($this->get('router')->generate('constructor', array('id' => $circuit->getId())));
@@ -63,9 +65,23 @@ class CircuitController extends Controller {
     /**
      * @Route("/constructor/{id}", name="constructor")
      */
-    public function constructorAction($id) {
-        return new Response($this->renderView('@Circuit/Circuit/constructor.html.twig', array(
+    public function constructorAction(Request $request, $id) {
+        /** @var Circuit $circuit */
+        $dm = $this->get('doctrine_mongodb')->getManager();
+        $circuit = $dm->getRepository('CircuitBundle:Circuit')->find($id);
+        if (!$circuit) {
+            return new JsonResponse([]);
+        }
 
-        )));
+        if ($request->getMethod() == 'POST' && $request->get('components', false)) {
+            $circuit->setComponents($request->get('components', []));
+            $dm->merge($circuit);
+            $dm->flush();
+            return new JsonResponse($circuit->getComponents());
+        } else {
+            return new Response($this->renderView('@Circuit/Circuit/constructor.html.twig', array(
+                'circuit' => $circuit
+            )));
+        }
     }
 }

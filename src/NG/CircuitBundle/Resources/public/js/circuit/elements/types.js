@@ -1,3 +1,3 @@
-MasterApp.module('Circuit.Component', function(module, app, Backbone, Marionette, $, _){
+MasterApp.module('Circuit', function(module, app, Backbone, Marionette, $, _){
 
 });

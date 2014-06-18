@@ -1,0 +1,212 @@
+<?php
+
+namespace NG\CircuitBundle\Document;
+
+
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+use Doctrine\ODM\MongoDB\Mapping\Annotations\HasLifecycleCallbacks;
+
+/**
+ * Class for ComponentType
+ *
+ * @MongoDB\Document(
+ *     collection="component_type",
+ *     indexes={
+ *         @MongoDB\Index(keys={"_id"="asc", "ng.component_type"="asc"}, options={"background"="true"}),
+ *     },
+ *     requireIndexes=false
+ * )
+ * @HasLifecycleCallbacks()
+ */
+class ComponentType {
+    const BASE_UPLOAD_DIR = '/uploads/';
+
+    /** @var string */
+    protected $custom_dir = 'components/';
+    /**
+     * @MongoDB\Id
+     */
+    private $id;
+
+    /**
+     * @MongoDB\String(name="name")
+     */
+    protected $name;
+
+    /**
+     * @MongoDB\String(name="machine_name")
+     */
+    protected $machineName;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="Pin")
+     */
+    protected $pinCollection;
+
+    /**
+     * @MongoDB\String(name="image")
+     */
+    protected $image;
+
+    /**
+     * @MongoDB\EmbedMany(targetDocument="HelpImage")
+     */
+    protected $helpImages;
+
+    /**
+     * @MongoDB\ReferenceMany(targetDocument="ComponentType")
+     */
+    protected $variants;
+
+    function __construct()
+    {
+        $this->image = static::getDefaultPreviewPath();
+        $this->variants = new ArrayCollection();
+        $this->helpImages = new ArrayCollection();
+        $this->pinCollection = new ArrayCollection();
+    }
+
+    public  static function getDefaultPreviewPath()
+    {
+        return '';
+    }
+
+    /**
+     * Function getter for $id
+     *
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Function setter for $image
+     *
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    /**
+     * Function getter for $image
+     *
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Function setter for $machineName
+     *
+     * @param mixed $machineName
+     */
+    public function setMachineName($machineName)
+    {
+        $this->machineName = $machineName;
+        return $this;
+    }
+
+    /**
+     * Function getter for $machineName
+     *
+     * @return mixed
+     */
+    public function getMachineName()
+    {
+        return $this->machineName;
+    }
+
+    /**
+     * Function setter for $name
+     *
+     * @param mixed $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Function getter for $name
+     *
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Function setter for $pinCollection
+     *
+     * @param mixed $pinCollection
+     */
+    public function setPinCollection($pinCollection)
+    {
+        $this->pinCollection = $pinCollection;
+        return $this;
+    }
+
+    /**
+     * Function getter for $pinCollection
+     *
+     * @return mixed
+     */
+    public function getPinCollection()
+    {
+        return $this->pinCollection;
+    }
+
+    /**
+     * Function setter for $variants
+     *
+     * @param mixed $variants
+     */
+    public function setVariants($variants)
+    {
+        $this->variants = $variants;
+        return $this;
+    }
+
+    /**
+     * Function getter for $variants
+     *
+     * @return mixed
+     */
+    public function getVariants()
+    {
+        return $this->variants;
+    }
+
+    /**
+     * Function setter for $helpImages
+     *
+     * @param mixed $helpImages
+     */
+    public function setHelpImages($helpImages)
+    {
+        $this->helpImages = $helpImages;
+        return $this;
+    }
+
+    /**
+     * Function getter for $helpImages
+     *
+     * @return mixed
+     */
+    public function getHelpImages()
+    {
+        return $this->helpImages;
+    }
+
+    
+}

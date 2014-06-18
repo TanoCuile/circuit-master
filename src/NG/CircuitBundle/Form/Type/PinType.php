@@ -2,6 +2,7 @@
 
 namespace NG\CircuitBundle\Form\Type;
 
+use NG\CircuitBundle\Document\Pin;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,6 +23,10 @@ class PinType extends AbstractType {
                 'attr' => array(
                     'class' => 'y-axis'
                 )
+            ))
+            ->add('orientation', 'choice', array(
+                'label' => '',
+                'choices' => Pin::getOrientationList(false)
             ))
         ;
     }

@@ -27,6 +27,7 @@ class KernelListener {
         );
         if ($user = $this->getUser()) {
             $items[$router->generate('circuit_user_list', array('user' => $user->getId()))] = 'Мої схеми';
+            $items[$router->generate('circuit')] = 'Створити схему';
             if ($user->getPermission() > User::USER_PERMISSION_STUDENT) {
                 $items[$router->generate('admin_groups', array('user' => $user->getId()))] = 'Список груп';
             }

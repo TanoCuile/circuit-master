@@ -11,6 +11,11 @@ use Doctrine\ODM\MongoDB\Mapping\Annotations\HasLifecycleCallbacks;
  * @MongoDB\EmbeddedDocument()
  */
 class Pin {
+    const ORIENTATION_TOP = 1;
+    const ORIENTATION_RIGHT = 2;
+    const ORIENTATION_BOTTOM = 3;
+    const ORIENTATION_LEFT = 4;
+
     /**
      * @MongoDB\Id()
      */
@@ -20,6 +25,11 @@ class Pin {
      * @MongoDB\String(name="machineName")
      */
     protected $machineName;
+
+    /**
+     * @MongoDB\Int(name="orientation")
+     */
+    protected $orientation;
 
     /**
      * @MongoDB\Int(name="x")
@@ -102,5 +112,40 @@ class Pin {
     public function getY()
     {
         return $this->y;
+    }
+
+    /**
+     * Function setter for $orientation
+     *
+     * @param mixed $orientation
+     */
+    public function setOrientation($orientation)
+    {
+        $this->orientation = $orientation;
+        return $this;
+    }
+
+    /**
+     * Function getter for $orientation
+     *
+     * @return mixed
+     */
+    public function getOrientation()
+    {
+        return $this->orientation;
+    }
+
+    public static function getOrientationList($keysOnly = false){
+        $list = array(
+            static::ORIENTATION_TOP => 'Верх',
+            static::ORIENTATION_RIGHT => 'Право',
+            static::ORIENTATION_BOTTOM => 'Низ',
+            static::ORIENTATION_LEFT => 'Ліво'
+        );
+
+        if ($keysOnly) {
+            return array_keys($list);
+        }
+        return $list;
     }
 }

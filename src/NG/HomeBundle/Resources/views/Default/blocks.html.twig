@@ -1,5 +1,16 @@
 {% block default_control_buttons %}
     <div class="topnav">
+        {% if app.request.attributes.get('_route') == 'constructor' %}
+            <div class="btn-group">
+                <a data-placement="bottom" data-original-title="Зберегти" data-toggle="tooltip"
+                   class="btn btn-default save-circuit btn-sm" id="menu-toggle">
+                    <i class="fa fa-save"></i>
+                </a>
+                <a data-placement="bottom" data-original-title="Запустити" data-toggle="tooltip"
+                   class="btn btn-default play-circuit btn-sm"> <span class="fa fa-play"></span>
+                </a>
+            </div>
+        {% endif %}
         <div class="btn-group">
             <a data-toggle="modal" data-original-title="Допомога" data-placement="bottom"
                class="btn btn-default btn-sm" href="#helpModal">
@@ -106,10 +117,10 @@
                         </a>
                         <ul>
                             {% for child in children %}
-                            <li class="{{ child.container_class }}">
-                                <a href="{{ child.url }}">
-                                    <i class="{{ child.class }}"></i>&nbsp;{{ child.title }}</a>
-                            </li>
+                                <li class="{{ child.container_class }}">
+                                    <a href="{{ child.url }}">
+                                        <i class="{{ child.class }}"></i>&nbsp;{{ child.title }}</a>
+                                </li>
                             {% endfor %}
                         </ul>
                     </li>
@@ -117,7 +128,6 @@
             {% endfor %}
         </ul>
     {% else %}
-        Будь-ласка увійдіть або зареєструйтесь
     {% endif %}
 {% endblock %}
 

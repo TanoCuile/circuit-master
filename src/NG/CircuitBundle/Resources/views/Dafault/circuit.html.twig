@@ -49,8 +49,8 @@
                                 {% for g in groupInfo.components %}
                                     <div class="row">
                                     {% for component in g %}
-                                        <div id="component-{{ component.machineName }}" class="well col-md-4">
-                                            <h5 class="title">
+                                        <div id="component-{{ component.machineName }}" class="well col-md-12">
+                                            <h5 class="title hidden">
                                                 {{ component.name }}
                                             </h5>
                                             <div class="preview">
@@ -65,8 +65,9 @@
                                                     pinCollection: [
                                                         {% for pin in component.pinCollection %}
                                                         {
-                                                            id: '{{ pin.machineName }}',
-                                                            position: {
+                                                            name: '{{ pin.machineName }}',
+                                                            orientation: {{ pin.orientation|default(0) }},
+                                                            offsetPosition: {
                                                                 x: {{ pin.x }},
                                                                 y: {{ pin.y }}
                                                             }
